@@ -3,6 +3,7 @@
 #include "sys/time.h"
 #include "time.h"
 #include <cblas.h>
+#include "math.h"
 
 // 编译 gcc -o time_dgemm time_dgemm.c –lopenblas
 // 运行 ./time_dgemm 1024
@@ -34,6 +35,7 @@ int main(int argc, char *argv[])
   double *A = (double *)malloc(sizeof(double) * sizeofa);
   double *B = (double *)malloc(sizeof(double) * sizeofb);
   double *C = (double *)malloc(sizeof(double) * sizeofc);
+  double *D = (double *)malloc(sizeof(double) * sizeofc);
   srand((unsigned)time(NULL));
 
   for (i = 0; i < sizeofa; i++)
@@ -51,9 +53,43 @@ int main(int argc, char *argv[])
     C[i] = 0.1;
   }
 
+  for (i = 0; i < sizeofc; i++)
+  {
+    D[i] = 0.1;
+  }
+
+  void dgemm(int m, int n, int k, double beta,double alpha,
+          double A[], double B[], double C[]){
+    for(int i=0; i< m;i ++){    //C[i] 
+        for(int j=0; j< n; j++){  //C[i][j]
+            C[i*n+j] = beta*C[i*n+j];
+            for(int p=0; p< k; p++){  
+                C[i*n+j] += alpha*A[i*k+p]*B[p*n+j]; 
+             }
+        }
+    }
+}
+  
+
   printf("m=%d,n=%d,k=%d,alpha=%lf,beta=%lf,sizeofc=%d\n", m, n, k, alpha, beta, sizeofc);
   gettimeofday(&start, NULL);
+  dgemm(m,n,k,beta,alpha,A,B,D);
   cblas_dgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, A, lda, B, ldb, beta, C, ldc);
+
+void Check(double C[],double D[]){
+  for (i = 0; i < sizeofc; i++)
+  {
+    if (fabs(C[i]-D[i])>1e-9)
+    {
+      printf("%.30lf %.30lf",C[i],D[i]);
+      printf("different\n");
+      return;
+    }
+  }
+  printf("same\n");
+}
+
+  Check(C,D);
   gettimeofday(&finish, NULL);
 
   // 转成成秒数
