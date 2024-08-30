@@ -14,10 +14,10 @@ int main()
   double alpha = 1.0;
   double beta = 2.0;
 
-  int lda = M;
-  int ldb = K;
-  int ldc = M;
-  cblas_dgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, M, N, K, alpha, A, lda, B, ldb, beta, C, ldc);
+  int lda = K;
+  int ldb = N;
+  int ldc = N;
+  cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, M, N, K, alpha, A, lda, B, ldb, beta, C, ldc);
 
   for (i = 0; i < 9; i++)
     printf("%lf ", C[i]);
