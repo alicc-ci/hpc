@@ -95,5 +95,5 @@ ax.legend()
 ax.set_xlim([old_data[0,0], old_data[-1,0]])
 ax.set_ylim([0, max_gflops])
 
-# fig.savefig("test.png")
+fig.savefig("test.png")
 plt.show()

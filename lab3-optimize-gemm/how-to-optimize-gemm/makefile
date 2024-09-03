@@ -1,12 +1,12 @@
 OLD  := MMult0
-NEW  := MMult0
+NEW  := blas_cal
 
 
 CC         := gcc
 LINKER     := $(CC) 
 
-CFLAGS     := -Wall -Werror -Wno-unused-result -Wno-unused-value -Wno-unused-variable -g
-LDFLAGS    := -lm
+CFLAGS     := -Wall -Werror -Wno-unused-result -Wno-unused-value -Wno-unused-variable -g -I/usr/include/x86_64-linux-gnu
+LDFLAGS    := -L/usr/lib/x86_64-linux-gnu -lopenblas -lm
 
 DATA_DIR = _data
 BUILD_DIR = _build
