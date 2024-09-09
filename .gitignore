@@ -1,5 +1,9 @@
+lab5-thread
+lab4-process
 lab3-optimize-gemm/bufferoverflow.c
 lab2-naive-gemm
 lab1-linux
 lab9
 .vscode
+.gitignore
+README.md

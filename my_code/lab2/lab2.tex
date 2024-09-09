@@ -1,0 +1,56 @@
+\documentclass{article} %选择文档类型，我们如果是做期末大作业的话选article就可以了
+
+\usepackage{anyfontsize}
+%正如c++需要import库来实现各种各样的功能，Latex也需要调用宏包来实现各种各样的功能
+\usepackage{amsmath}  %调用公式宏包
+\usepackage{graphicx} %调用插图宏包
+\graphicspath{{code_Latex/}}
+\usepackage{ctex}     %调用中文宏包
+\usepackage{float}
+\usepackage{cite}
+
+%\begin{document}这句话之前是导言区，这句话以后就开始写正文了
+%可以把导言区理解为int main()函数之前的内容，而正文就是int main()主函数的部分了
+\usepackage{geometry}
+\geometry{left=1.5cm,right=0.5cm,top=1.0cm,bottom=1.5cm}
+
+\begin{document}
+    \title{\centerline{高性能计算实验报告}}
+    \date{实验二}
+    \author{信息学部 2023311704 王昕远}
+    \maketitle
+    \thispagestyle{empty}
+\section{实验环境}
+\texttt{ OS版本: Linux wxy 5.15.153.1-microsoft-standard-WSL2 \#1 SMP Fri Mar 29 23:14:13 UTC 2024 x86\_64 x86\_64 x86\_64 GNU/Linux}
+
+发行版本： Ubantu 22.04.3 LTS
+
+cpu型号AMD Ryzen 7 7745HX with Radeon Graphics 
+
+内存大小 Mem 7973212
+\section{test-cblas-dgemm}
+
+修改后行主序后需要改lda ldb ldc的值 计算与列主序结果相同
+
+
+
+
+\section{time-dgemm}
+\begin{tabular}{|c|c|c|c|c|}
+    \hline
+     & 256 & 1024 & 4096 & 8192\\ \hline
+    cblas-dgemm duration & 0.001890 s & 0.005977 s &0.339436 s&2.216277 s\\ \hline
+    naive-dgemm duration &0.045579 s  & 3.449738 s & too long&too long\\ \hline
+    cblas-dgemm gflops &35.507335 GFLOPS &  718.582449 GFLOPS&809.807760 GFLOPS&992.214987 GFLOPS\\ \hline
+    naive-dgemm gflops & 1.472364 GFLOPS & 1.245013 GFLOPS & outtime&outtime\\ \hline
+\end{tabular}
+
+$$
+$$
+
+使用naive 与 cblas 计算的结果在浮点数的1e-9位左右会有偏差，在误差范围内计算结果相同，且cblas的计算速度远超naive 
+
+duration 与 gflops成反比
+
+
+\end{document}
