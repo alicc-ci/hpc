@@ -1,5 +1,5 @@
 OLD  := MMult0
-NEW  := blas_cal
+NEW  := MMult0
 
 
 CC         := gcc
