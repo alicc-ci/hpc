@@ -4,7 +4,9 @@
 #include "defs.h"
 #include <sys/time.h>
 #include <pthread.h>
-#include "MY_MMult.c"
+// #include "MY_MMult.c"
+// #include "blas_cal.c"
+// #include "openmp_gemm.c"
 
 #define NUM_THREADS 4  // 定义线程数量
 
@@ -25,6 +27,8 @@ void zero_matrix(int, int, double *, int);
 double compare_matrices(int, int, double *, int, double *, int);
 void print_rowmajor_matrix(int m, int n, double *a, int lda);
 double dclock();
+// void MY_MMult_pthread(int m, int n, int k, double *A, int lda, double *B, int ldb, double *C, int ldc);
+// extern void MY_MMult_openmp(int m, int n, int k, double *A, int lda, double *B, int ldb, double *C, int ldc);
 
 int main()
 {
@@ -100,20 +104,34 @@ int main()
         dtime_best = (dtime < dtime_best ? dtime : dtime_best);
     }
 
-    for (rep = 0; rep < NREPEATS; rep++)
-    {
-      copy_matrix(m, n, cold, ldc, c, ldc);
+    // for (rep = 0; rep < NREPEATS; rep++)
+    // {
+    //   copy_matrix(m, n, cold, ldc, c, ldc);
 
-      /* Time your implementation */
-      dtime = dclock();
-      MY_MMult_pthread(m, n, k, a, lda, b, ldb, c, ldc);
-      dtime = dclock() - dtime;
+    //   /* Time your implementation */
+    //   dtime = dclock();
+    //   MY_MMult_pthread(m, n, k, a, lda, b, ldb, c, ldc);
+    //   dtime = dclock() - dtime;
 
-      if (rep == 0)
-        dtime_best = dtime;
-      else
-        dtime_best = (dtime < dtime_best ? dtime : dtime_best);
-    }
+    //   if (rep == 0)
+    //     dtime_best = dtime;
+    //   else
+    //     dtime_best = (dtime < dtime_best ? dtime : dtime_best);
+    // }
+
+    // for (rep = 0; rep < NREPEATS; rep++) {
+    //   copy_matrix(m, n, cold, ldc, c, ldc);
+
+    //   /* Time the OpenMP implementation */
+    //   dtime = dclock();
+    //   MY_MMult_openmp(m, n, k, a, lda, b, ldb, c, ldc);
+    //   dtime = dclock() - dtime;
+
+    //   if (rep == 0)
+    //       dtime_best = dtime;
+    //   else
+    //       dtime_best = (dtime < dtime_best ? dtime : dtime_best);
+    // }
 
     diff = compare_matrices(m, n, c, ldc, cref, ldc);
 
