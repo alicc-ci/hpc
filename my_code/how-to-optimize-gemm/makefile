@@ -60,7 +60,7 @@ LDFLAGS    := -L/usr/lib/x86_64-linux-gnu -lopenblas -lm -fopenmp
 
 DATA_DIR = _data
 BUILD_DIR = _build
-OBJS  := $(BUILD_DIR)/util.o $(BUILD_DIR)/REF_MMult.o $(BUILD_DIR)/test_MMult.o $(BUILD_DIR)/blas_cal.o $(BUILD_DIR)/MY_MMult.o $(BUILD_DIR)/openmp_gemm.o
+OBJS  := $(BUILD_DIR)/util.o $(BUILD_DIR)/REF_MMult.o $(BUILD_DIR)/test_MMult.o $(BUILD_DIR)/blas_cal.o $(BUILD_DIR)/MY_MMult.o $(BUILD_DIR)/openmp_gemm.o $(BUILD_DIR)/pthread_gemm.o
 
 
 $(shell mkdir -p $(BUILD_DIR) $(DATA_DIR))
@@ -96,7 +96,7 @@ run:
 	@echo "version = '$(NEW)';" >> $(DATA_DIR)/output_$(NEW).m
 	$(BUILD_DIR)/test_MMult.x >> $(DATA_DIR)/output_$(NEW).m
 	@if [ ! -f $(DATA_DIR)/output_old.m ] || [ $(OLD) != $(NEW) ]; then \
-        cp $(DATA_DIR)/output_$(OLD).m $(DATA_DIR)/output_old.m; \
+        -cp $(DATA_DIR)/output_$(OLD).m $(DATA_DIR)/output_old.m; \
     fi
 
 	cp $(DATA_DIR)/output_$(NEW).m $(DATA_DIR)/output_new.m
