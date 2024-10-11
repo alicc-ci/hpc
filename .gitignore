@@ -1,2 +1,5 @@
 .vscode/
 class/
+lab2-naive-gemm
+lab3-optimize-gemm
+.gitignore
