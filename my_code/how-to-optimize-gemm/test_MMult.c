@@ -86,9 +86,10 @@ int main()
     copy_matrix(m, n, cold, ldc, cref, ldc);
 
     /* Run the reference implementation so the answers can be compared */
+    //navie矩阵乘REF_MMult函数
     REF_MMult(m, n, k, a, lda, b, ldb, cref, ldc);
 
-    // blas
+    // openblas矩阵乘
     for (rep = 0; rep < NREPEATS; rep++)
     {
       copy_matrix(m, n, cold, ldc, c, ldc);
@@ -110,7 +111,7 @@ int main()
     printf("%d %le %le \n", p, gflops / dtime_best, diff);
     fflush(stdout);
 
-    // pthread
+    // pthread多线程矩阵乘
     for (rep = 0; rep < NREPEATS; rep++)
     {
       copy_matrix(m, n, cold, ldc, c, ldc);
@@ -132,7 +133,7 @@ int main()
     printf("%d %le %le \n", p, gflops / dtime_best, diff);
     fflush(stdout);
 
-    // openMP
+    // openMP矩阵乘
     for (rep = 0; rep < NREPEATS; rep++)
     {
       copy_matrix(m, n, cold, ldc, c, ldc);
